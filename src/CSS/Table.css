@@ -1,0 +1,9 @@
+.table-wrapper-scroll-y {
+    max-height: 43vh;
+}
+td{
+    text-align: center;
+}
+th{
+    text-align: center;
+}

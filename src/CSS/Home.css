@@ -1,0 +1,28 @@
+#card-g{
+    border:none;
+    width: 65%;
+    background-color: #eceff1;
+}
+.card-header{
+    font-size: 20px;
+    margin-top: 25px;
+    background-color: #F7F7F7;
+}
+.cardinho{
+    background-color: white;
+    text-align: center;
+}
+button{
+    max-block-size: 100px;
+}
+.homebtn{
+    color: black;
+}
+.homebtn:hover{
+    color: white;
+    text-decoration: none;
+}
+.btn-block {
+    display: block;
+    width: 100%;
+}

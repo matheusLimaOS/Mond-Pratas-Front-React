@@ -1,0 +1,33 @@
+.navi:hover{
+    opacity: 1;
+    color: black;
+    text-decoration: none;
+}
+.navlogo:hover{
+    opacity: 1;
+    color: black;
+    text-decoration: none;
+}
+
+.navi{
+    opacity: 0.6;
+    color: black;
+}
+.navlogo{
+    opacity: 0.75;
+    color: black;
+}
+
+.navi.active{
+    opacity: 1;
+    color: black;
+    text-decoration: underline;
+}
+.navlogo.active{
+    opacity: 1;
+    color: black;
+}
+
+#card{
+    background-color: #eceff1;
+}
