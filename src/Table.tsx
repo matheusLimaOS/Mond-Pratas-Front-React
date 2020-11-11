@@ -1,37 +1,35 @@
 import React, {useEffect, useState} from 'react';
-import {MDBTable, MDBTableBody, MDBTableHead} from "mdbreact";
+import 'antd/dist/antd.css';
+import { Table } from 'antd';
 import api from "./axios";
 
-import './CSS/Table.css';
-
-interface props{
-    colunc:Array<object>,
+interface Props{
+    colunc:Array<Object>,
     route:string,
+    atu:boolean
 }
 
-function Table(Props: props) {
-    let [rows,setrows] = useState(    {
-        "ID": 0,
-        "descricao": "",
-        "tamanho": 0,
-        "quantidade": 0,
-        "valor": 0,
-    });
+const Tabela = (props:Props) => {
+    let [Data,setData] = useState();
 
     useEffect(()=>{
-        api.get("http://localhost:8080/"+Props.route).then(produtos =>{
-            setrows(produtos.data);
+        api.get("http://localhost:8080/" + props.route).then(produtos =>{
+            setData(produtos.data.produtos);
         }).catch(error =>{
             console.log(error);
         })
-    },[Props.route]);
-
+    },[props.route,props.atu]);
     return (
-        <MDBTable scrollY hover>
-            <MDBTableHead columns={Props.colunc} />
-            <MDBTableBody rows={rows["produtos"]}/>
-        </MDBTable>
-    );
-}
+        <div>
+            <Table
+                pagination={{
+                    pageSize:5
+                }}
 
-export default Table;
+                columns={props.colunc}
+                dataSource={Data}
+            />
+        </div>
+    );
+};
+export default Tabela;

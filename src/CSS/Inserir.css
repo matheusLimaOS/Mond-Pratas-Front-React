@@ -1,6 +1,8 @@
 .card-body{
-    max-height: 100vh;
+    min-height: auto;
+    max-height: max-content;
     text-align: left;
+    overflow: auto;
 }
 .card-body{
     background-color: white;
@@ -8,4 +10,10 @@
 }
 .alert{
     margin-top: 10px;
+}
+.btn{
+    margin-bottom: 10px;
+}
+.btnda{
+    margin-left: 10px;
 }

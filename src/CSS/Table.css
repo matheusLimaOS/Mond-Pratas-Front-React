@@ -7,3 +7,6 @@ td{
 th{
     text-align: center;
 }
+.ant-table table {
+    width: content-box;
+}

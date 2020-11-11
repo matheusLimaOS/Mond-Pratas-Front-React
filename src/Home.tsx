@@ -16,17 +16,17 @@ function Home() {
                   </Card.Header>
                   <Card.Body className="cardinho">
                       <ButtonGroup className="btn-block" size='lg' >
-                          <Link className="homebtn" to="/Venda">
-                              <Button variant="outline-dark" size="lg">
+                          <Link  to="/Venda">
+                              <Button variant="outline-dark" size="lg" >
                                   VENDER
                               </Button>
                           </Link>
-                          <Link className="homebtn" to="/Inserir" >
-                              <Button variant="outline-dark" size="lg">
+                          <Link to="/Inserir" >
+                              <Button variant="outline-dark" size="lg" >
                                   INSERIR
                               </Button>
                           </Link>
-                          <Link className="homebtn" to="/HistVendas">
+                          <Link  to="/HistVendas">
                               <Button variant="outline-dark" size="lg">
                                   HISTÓRICO DE VENDAS
                               </Button>

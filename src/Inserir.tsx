@@ -2,11 +2,13 @@ import React, {useState} from 'react';
 import NavBar from "./Navbar";
 import Table from "./Table";
 import {Card, Col, Form} from "react-bootstrap";
-import './CSS/Venda.css'
+import './CSS/Inserir.css'
 import {Button,Alert} from "reactstrap";
 import api from "./axios";
+import {Space} from "antd";
 
 interface Produ{
+    id:number,
     desc: string,
     tamanho: number,
     quantidade: number,
@@ -17,11 +19,15 @@ function TELAINSERIR() {
     let [Visivel,setVisivel] = useState(false);
     let [Color,setColor] = useState("success");
     let [Message,setMessage] = useState("");
+    let [ID,setID] = useState(0);
     let [Desc,setDesc] = useState("");
     let [Tamanho,setTamanho] = useState(0);
     let [Quantidade,setQuantidade] = useState(0);
     let [Valor,setValor] = useState(0);
+    let [Trava,setTrava] = useState(false);
+    let [Atu,setAtu] = useState(false);
     let prod: Produ = {
+        id: ID,
         desc: Desc,
         tamanho: Tamanho,
         quantidade: Quantidade,
@@ -30,50 +36,101 @@ function TELAINSERIR() {
 
     const colunc: Array<Object> = [
         {
-            label: "ID",
-            field: "ID"
+            title: "ID",
+            dataIndex: "ID"
         },
         {
-            label: "Descrição",
-            field: "descricao"
+            title: "Descrição",
+            dataIndex: "descricao"
         },
         {
-            label: "Tamanho",
-            field: "tamanho"
+            title: "Tamanho",
+            dataIndex: "tamanho"
         },
         {
-            label: "Quantidade",
-            field: "quantidade"
+            title: "Quantidade",
+            dataIndex: "quantidade"
         },
         {
-            label: "Valor",
-            field: "valor"
+            title: "Valor",
+            dataIndex: "valor"
+        },
+        {
+            title: "Ação",
+            key: "action",
+            render: (text, record) => (
+                <Space>
+                    <Button onClick={() => edit(record)} color="dark" outline={true}>EDITAR</Button>
+                </Space>
+            )
         }
     ];
+
     function onDismiss() {
         setVisivel(false);
     };
     function submitar(){
-        api.post("http://localhost:8080/produto",prod).then(prod =>{
-            setVisivel(true);
-            setMessage("DEU TUDO CERTO MLK BOM DO CARALHO FILHA DA PUTA");
-        }).catch(error => {
-            if(error.toString().indexOf("409") > 0){
+        if(!Trava){
+            api.post("http://localhost:8080/produto",prod).then(prod =>{
+                setAtu(!Atu);
                 setVisivel(true);
-                setColor("danger");
-                setMessage("Produto já cadastrado!");
-            };
-            if(error.toString().indexOf("405") > 0){
+                setMessage("Produto Inserido com sucesso!");
+            }).catch(error => {
+                if(error.toString().indexOf("409") > 0){
+                    setVisivel(true);
+                    setColor("danger");
+                    setMessage("Produto já cadastrado!");
+                };
+                if(error.toString().indexOf("405") > 0){
+                    setVisivel(true);
+                    setColor("danger");
+                    setMessage("Dados inseridos inválidos!");
+                };
+                if(error.toString().indexOf("500") > 0){
+                    setVisivel(true);
+                    setColor("danger");
+                    setMessage("Erro na aplicação, Por favor entre em contato com o desenvolvedor!");
+                };
+            })
+        }
+        else{
+            api.put("http://localhost:8080/produto/editar/" + prod.id,prod).then(prod =>{
+                setAtu(!Atu);
                 setVisivel(true);
-                setColor("danger");
-                setMessage("Dados inseridos inválidos!");
-            };
-            if(error.toString().indexOf("500") > 0){
-                setVisivel(true);
-                setColor("danger");
-                setMessage("Erro na aplicação, Por favor entre em contato com o desenvolvedor!");
-            };
-        })
+                setMessage("Produto editado com sucesso!");
+            }).catch(error => {
+                if (error.toString().indexOf("409") > 0) {
+                    setVisivel(true);
+                    setColor("danger");
+                    setMessage("Para remover produtos, vá na tela de Venda!");
+                };
+                if (error.toString().indexOf("405") > 0) {
+                    setVisivel(true);
+                    setColor("danger");
+                    setMessage("Dados inseridos inválidos!");
+                };
+                if (error.toString().indexOf("500") > 0) {
+                    setVisivel(true);
+                    setColor("danger");
+                    setMessage("Erro na aplicação, Por favor entre em contato com o desenvolvedor!");
+                };
+            })
+        }
+    }
+    function edit(record){
+        setID(record.ID);
+        setDesc(record.descricao);
+        setTamanho(record.tamanho);
+        setQuantidade(record.quantidade);
+        setValor(record.valor);
+        setTrava(true);
+    }
+    function desedit(){
+        setDesc('');
+        setTamanho(1);
+        setQuantidade(1);
+        setValor(1);
+        setTrava(false);
     }
 
     function change1(e){
@@ -103,7 +160,7 @@ function TELAINSERIR() {
                             <Form.Row>
                                     <Form.Label column sm={2}>DESCRIÇÃO:</Form.Label>
                                     <Col sm={10}>
-                                    <Form.Control value={prod.desc} onChange={change1} id="desc" placeholder="Descrição do Produto"/><br/>
+                                    <Form.Control disabled={Trava} value={prod.desc} onChange={change1} id="desc" placeholder="Descrição do Produto"/><br/>
                                     </Col>
                             </Form.Row>
                             <Form.Row>
@@ -125,10 +182,11 @@ function TELAINSERIR() {
                                 </Col>
                             </Form.Row>
                             <Button onClick={submitar} color="dark" outline={true}>INSERIR</Button>
+                            <Button className="btnda" onClick={desedit} color="danger" outline={true} disabled={!Trava}>CANCELAR</Button>
                             <br/>
                             <Alert color={Color} isOpen={Visivel} toggle={onDismiss}>{Message}</Alert>
                         </Form>
-                        <Table colunc={colunc} route="produtos"/>
+                        <Table colunc={colunc} route="produtos" atu={Atu} />
                     </Card.Body>
                 </Card>
             </div>
