@@ -1,12 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import 'antd/dist/antd.css';
-import { Table } from 'antd';
+import {Table} from "antd";
 import api from "./axios";
 
 interface Props{
     colunc:Array<Object>,
     route:string,
-    atu:boolean
+    atu:boolean,
+    page:number,
 }
 
 const Tabela = (props:Props) => {
@@ -23,9 +24,9 @@ const Tabela = (props:Props) => {
         <div>
             <Table
                 pagination={{
-                    pageSize:5
+                    pageSize:props.page
                 }}
-
+                bordered={true}
                 columns={props.colunc}
                 dataSource={Data}
             />

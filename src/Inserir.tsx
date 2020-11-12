@@ -41,19 +41,23 @@ function TELAINSERIR() {
         },
         {
             title: "Descrição",
-            dataIndex: "descricao"
+            dataIndex: "descricao",
+            sorter: (a, b) => a.descricao.length - b.descricao.length,
         },
         {
             title: "Tamanho",
-            dataIndex: "tamanho"
+            dataIndex: "tamanho",
+            sorter: (a, b) => a.tamanho - b.tamanho,
         },
         {
             title: "Quantidade",
-            dataIndex: "quantidade"
+            dataIndex: "quantidade",
+            sorter: (a, b) => a.quantidade - b.quantidade,
         },
         {
             title: "Valor",
-            dataIndex: "valor"
+            dataIndex: "valor",
+            sorter: (a, b) => a.valor - b.valor,
         },
         {
             title: "Ação",
@@ -156,37 +160,40 @@ function TELAINSERIR() {
                         INSERIR
                     </Card.Header>
                     <Card.Body>
-                        <Form>
-                            <Form.Row>
-                                    <Form.Label column sm={2}>DESCRIÇÃO:</Form.Label>
+                        <div hidden={false}>
+                            <Form>
+                                <Form.Row>
+                                        <Form.Label srOnly={false} column sm={2}>DESCRIÇÃO:</Form.Label>
+                                        <Col sm={10}>
+                                            <Form.Control value={prod.desc} onChange={change1} id="desc" placeholder="Descrição do Produto"/><br/>
+                                        </Col>
+                                </Form.Row>
+                                <Form.Row>
+                                    <Form.Label column sm={2}>TAMANHO:</Form.Label>
                                     <Col sm={10}>
-                                    <Form.Control disabled={Trava} value={prod.desc} onChange={change1} id="desc" placeholder="Descrição do Produto"/><br/>
+                                        <Form.Control value={prod.tamanho} onChange={change2} id="tam" placeholder="Tamanho do Produto"/><br/>
                                     </Col>
-                            </Form.Row>
-                            <Form.Row>
-                                <Form.Label column sm={2}>TAMANHO:</Form.Label>
-                                <Col sm={10}>
-                                    <Form.Control value={prod.tamanho} onChange={change2} id="tam" placeholder="Tamanho do Produto"/><br/>
-                                </Col>
-                            </Form.Row>
-                            <Form.Row>
-                                <Form.Label column sm={2}>QUANTIDADE:</Form.Label>
-                                <Col sm={10}>
-                                    <Form.Control value={prod.quantidade} onChange={change3} id="quant" placeholder="Quantidade do Produto"/><br/>
-                                </Col>
-                            </Form.Row>
-                            <Form.Row>
-                                <Form.Label column sm={2}>VALOR:</Form.Label>
-                                <Col sm={10}>
-                                    <Form.Control value={prod.valor} onChange={change4} id="val" placeholder="Valor do Produto"/><br/>
-                                </Col>
-                            </Form.Row>
-                            <Button onClick={submitar} color="dark" outline={true}>INSERIR</Button>
-                            <Button className="btnda" onClick={desedit} color="danger" outline={true} disabled={!Trava}>CANCELAR</Button>
-                            <br/>
-                            <Alert color={Color} isOpen={Visivel} toggle={onDismiss}>{Message}</Alert>
-                        </Form>
-                        <Table colunc={colunc} route="produtos" atu={Atu} />
+                                </Form.Row>
+                                <Form.Row>
+                                    <Form.Label column sm={2}>QUANTIDADE:</Form.Label>
+                                    <Col sm={10}>
+                                        <Form.Control value={prod.quantidade} onChange={change3} id="quant" placeholder="Quantidade do Produto"/><br/>
+                                    </Col>
+                                </Form.Row>
+                                <Form.Row>
+                                    <Form.Label column sm={2}>VALOR:</Form.Label>
+                                    <Col sm={10}>
+                                        <Form.Control value={prod.valor} onChange={change4} id="val" placeholder="Valor do Produto"/><br/>
+                                    </Col>
+                                </Form.Row>
+
+                                <Button onClick={submitar} color="dark" outline={true}>INSERIR</Button>
+                                <Button className="btnda" onClick={desedit} color="danger" outline={true} disabled={!Trava}>CANCELAR</Button>
+                                <br/>
+                                <Alert color={Color} isOpen={Visivel} toggle={onDismiss}>{Message}</Alert>
+                            </Form>
+                        </div>
+                        <Table colunc={colunc} route="produtos" atu={Atu} page={5}/>
                     </Card.Body>
                 </Card>
             </div>

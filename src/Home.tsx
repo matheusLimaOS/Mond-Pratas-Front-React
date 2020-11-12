@@ -1,7 +1,7 @@
 import React from 'react';
 import './CSS/Home.css';
 import NavBar from "./Navbar";
-import {Button, ButtonGroup, Card} from "react-bootstrap";
+import {Button, Card} from "react-bootstrap";
 import {Link} from "react-router-dom";
 
 function Home() {
@@ -15,23 +15,22 @@ function Home() {
                       O que deseja realizar?
                   </Card.Header>
                   <Card.Body className="cardinho">
-                      <ButtonGroup className="btn-block" size='lg' >
-                          <Link  to="/Venda">
-                              <Button variant="outline-dark" size="lg" >
-                                  VENDER
-                              </Button>
-                          </Link>
-                          <Link to="/Inserir" >
-                              <Button variant="outline-dark" size="lg" >
-                                  INSERIR
-                              </Button>
-                          </Link>
-                          <Link  to="/HistVendas">
-                              <Button variant="outline-dark" size="lg">
-                                  HISTÓRICO DE VENDAS
-                              </Button>
-                          </Link>
-                      </ButtonGroup>
+                      <Link to="/Venda">
+                          <Button variant="outline-dark" size="lg" block={true}>
+                              VENDER
+                          </Button>
+                      </Link>
+                      <Link to="/Inserir" >
+                          <Button variant="outline-dark" size="lg" block={true}>
+                              INSERIR
+                          </Button>
+                      </Link>
+                      <Link to="/HistVendas" >
+                          <Button className="teste" variant="outline-dark" size="lg" block={true}>
+                              HISTÓRICO DE VENDAS
+                          </Button>
+                        </Link>
+
                   </Card.Body>
               </Card>
           </div>
