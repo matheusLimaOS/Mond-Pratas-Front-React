@@ -23,7 +23,7 @@ function Home() {
     let [Color,setColor] = useState("success");
     let [Message,setMessage] = useState("");
     let [Atu,setAtu] = useState(false);
-    let flag:boolean = false;
+    let [Flag,setFlag] = useState(false);
     const colunc: Array<Object> = [
         {
             title: "ID Carrinho",
@@ -97,17 +97,17 @@ function Home() {
                 await api.put("http://localhost:8080/produto/carrinho/" + prod.id_produto,prod).then(prod =>{
                     api.delete("http://localhost:8080/carrinho/matholas/" + prod.data.idc);
                 }).catch(error => {
-                    flag=true;
+                    setFlag(true);
                 })
             }
         })
-        if(!flag){
+        if(!Flag){
             setAtu(!Atu);
             setVisivel(true);
             setColor("success");
             setMessage("Venda finalizada com sucesso!");
         }
-        else if(flag){
+        else if(Flag){
             setAtu(!Atu);
             setVisivel(true);
             setColor("danger");

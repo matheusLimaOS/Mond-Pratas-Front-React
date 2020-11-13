@@ -107,7 +107,7 @@ function TELAVENDA() {
         setValor(products.valor);
         setName("REMOVER")
         setEscolha(1);
-    } {/*FUNCTION MOSTRAR FORM COM REMOVER*/}
+    } /*FUNCTION MOSTRAR FORM COM REMOVER*/
     function sell(products:produtos){
         setPage(5);
         setTrava(false);
@@ -118,7 +118,7 @@ function TELAVENDA() {
         setValor(products.valor);
         setName("VENDER")
         setEscolha(0);
-    } {/*FUNCTION MOSTRAR FORM COM VENDER*/}
+    } /*FUNCTION MOSTRAR FORM COM VENDER*/
     function submitar(){
         console.log(prod);
         api.put("http://localhost:8080/produto/" + prod.id,prod).then(prod =>{

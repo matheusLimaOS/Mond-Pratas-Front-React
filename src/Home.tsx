@@ -11,7 +11,6 @@ function Home() {
           <div id="card">
               <Card className="mx-auto" id="card-g">
                   <Card.Header className="text-center">
-                      Seja bem vindo!<br/>
                       O que deseja realizar?
                   </Card.Header>
                   <Card.Body className="cardinho">
