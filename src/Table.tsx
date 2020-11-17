@@ -8,18 +8,22 @@ interface Props{
     route:string,
     atu:boolean,
     page:number,
+    type:string
 }
 
 const Tabela = (props:Props) => {
     let [Data,setData] = useState();
 
     useEffect(()=>{
-        api.get("http://localhost:8080/" + props.route).then(produtos =>{
-            setData(produtos.data.produtos);
-        }).catch(error =>{
-            console.log(error);
+        api.get("http://localhost:8080/" + props.route).then(produtos => {
+            if(props.type==="produtos")
+                setData(produtos.data.produtos);
+            else
+                setData(produtos.data.vendas);
+        }).catch(err => {
+            console.log(err);
         })
-    },[props.route,props.atu]);
+    },[props.route,props.atu,props.type]);
     return (
         <div>
             <Table

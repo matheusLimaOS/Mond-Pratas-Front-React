@@ -10,6 +10,7 @@ import CadUser from './CadUser'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './CSS/App.css';
+import HistVenda from "./HistVendas";
 
 function App(){
     return(
@@ -22,6 +23,7 @@ function App(){
                     <Route path="/Inserir" component={Inserir}/>
                     <Route path="/Carrinho" component={Carrinho}/>
                     <Route path="/CadUser" component={CadUser}/>
+                    <Route path="/HistVendas" component={HistVenda}/>
                     <Route path="/Logout"/>
                 </Switch>
             </Router>

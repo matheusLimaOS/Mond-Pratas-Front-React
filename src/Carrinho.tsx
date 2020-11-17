@@ -24,6 +24,8 @@ function Home() {
     let [Message,setMessage] = useState("");
     let [Atu,setAtu] = useState(false);
     let [Flag,setFlag] = useState(false);
+    let [Num,setNum] = useState(0);
+
     const colunc: Array<Object> = [
         {
             title: "ID Carrinho",
@@ -96,18 +98,29 @@ function Home() {
             for (const prod of prods.data.produtos) {
                 await api.put("http://localhost:8080/produto/carrinho/" + prod.id_produto,prod).then(prod =>{
                     api.delete("http://localhost:8080/carrinho/matholas/" + prod.data.idc);
+                    console.log(Num);
+                    setNum(1);
                 }).catch(error => {
                     setFlag(true);
                 })
             }
         })
         if(!Flag){
+            console.log(Num);
+            if(Num>0){
+                api.post("http://localhost:8080/venda/matholas");
+                setNum(0);
+            }
             setAtu(!Atu);
             setVisivel(true);
             setColor("success");
             setMessage("Venda finalizada com sucesso!");
         }
         else if(Flag){
+            if(Num>0){
+                api.post("http://localhost:8080/venda/matholas");
+                setNum(0);
+            }
             setAtu(!Atu);
             setVisivel(true);
             setColor("danger");
@@ -125,13 +138,31 @@ function Home() {
                         CARRINHO
                     </Card.Header>
                     <Card.Body className="cardinho">
-                        <Button onClick={() => {sellall()}} color="dark" outline={true}>FINALIZAR VENDA</Button>
+                        <Button
+                            onClick={() => {sellall()}}
+                            color="dark"
+                            outline={true}
+                        >
+                            FINALIZAR VENDA
+                        </Button>
                         <Link to="/Venda" className="b-c-v">
                             <Button color="dark" outline={true}>CONTINUAR VENDENDO</Button>
                         </Link>
-                        <Button onClick={() => {removeall()}} color="dark" outline={true}>LIMPAR CARRINHO</Button>
+                        <Button
+                            onClick={() => {removeall()}}
+                            color="dark"
+                            outline={true}
+                        >
+                            LIMPAR CARRINHO
+                        </Button>
                         <Alert color={Color} isOpen={Visivel} toggle={onDismiss}>{Message}</Alert>
-                        <Table route={"carrinho/matholas"} colunc={colunc} atu={Atu} page={5}/>
+                        <Table
+                            route={"carrinho/matholas"}
+                            colunc={colunc}
+                            atu={Atu}
+                            page={5}
+                            type="produtos"
+                        />
                     </Card.Body>
                 </Card>
             </div>

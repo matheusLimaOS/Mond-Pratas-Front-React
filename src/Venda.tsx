@@ -103,7 +103,7 @@ function TELAVENDA() {
         setID(products.ID);
         setDesc(products.descricao);
         setTamanho(products.tamanho);
-        setQuantidade(products.quantidade);
+        setQuantidade(1);
         setValor(products.valor);
         setName("REMOVER")
         setEscolha(1);
@@ -114,7 +114,7 @@ function TELAVENDA() {
         setID(products.ID);
         setDesc(products.descricao);
         setTamanho(products.tamanho);
-        setQuantidade(products.quantidade);
+        setQuantidade(1);
         setValor(products.valor);
         setName("VENDER")
         setEscolha(0);
@@ -251,7 +251,7 @@ function TELAVENDA() {
                                 </Alert>
                             </Form>
                         </div>
-                        <Table colunc={colunc} route="produtos" atu={Atu} page={Page}/>
+                        <Table colunc={colunc} route="produtos" atu={Atu} page={Page} type="produtos"/>
                     </Card.Body>
                 </Card>
             </div>
